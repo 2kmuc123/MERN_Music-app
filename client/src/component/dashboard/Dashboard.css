@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+
+.full {
+    background-image: url(./bg.jpg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    font-family: 'Quicksand';
+    height: 100vh;
+    overflow: auto;
+
+}
+
+/* Start  styling the page */
+.container-audio {
+    width: 66%;
+    height: auto;
+    padding: 20px;
+    border-radius: 5px;
+    color: #444;
+    margin: 20px auto;
+    overflow: hidden;
+    background-color: aliceblue;
+}
+
+audio {
+    width: 100%;
+}
+
+audio:nth-child(2),
+audio:nth-child(4),
+audio:nth-child(6) {
+    margin: 0;
+}
+
+.list_music_div:hover {
+    -webkit-transform: scale(1.05);
+    -moz-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    -o-transform: scale(1.05);
+    transform: scale(1.05);
+    background-color: #56f76cbe;
+    border-radius: 5px;
+
+}
+
+.list_music_div {
+    -webkit-transition: all 0.1s linear;
+    transition: all 0.1s linear;
+
+}
+
+.list_music_button {
+    border: 0em;
+    background: transparent;
+}
