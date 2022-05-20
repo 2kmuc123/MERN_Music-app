@@ -1,24 +1,32 @@
 const jwt = require('jsonwebtoken')
 const accountModel = require('../model/account')
+const bcrypt = require('bcrypt');
+const salt = bcrypt.genSaltSync(10)
 
 exports.login = (req, res, next) => {
     const name = req.body.name
-    const pass = req.body.pass
+    //const pass = req.body.pass
+    const hashpass = bcrypt.hashSync(`${req.body.pass}`, salt)
+
     accountModel.findOne({
-        name: name,
-        pass: pass
+        name: name
     })
         .then(data => {
             if (data == null)
                 return res.json({ status: false })
             else {
-                const token = jwt.sign({
-                    name: name
-                }, process.env.TOKEN_PASS)
-                return res.json({
-                    status: true,
-                    token: token
-                })
+                if (data.pass != hashpass) {
+                    return res.json({ status: false })
+                } else {
+                    const token = jwt.sign({
+                        name: name
+                    }, process.env.TOKEN_PASS)
+                    return res.json({
+                        status: true,
+                        token: token
+                    })
+                }
+
             }
         })
         .catch(err => console.log(`error : ${err}`))
@@ -26,9 +34,10 @@ exports.login = (req, res, next) => {
 
 exports.register = (req, res, next) => {
     const name = req.body.name;
-    const pass = req.body.pass;
+    const pass = bcrypt.hashSync(`${req.body.pass}`, salt)
     const mail = req.body.mail;
     const phone = req.body.phone;
+
 
     accountModel.findOne({
         name: name

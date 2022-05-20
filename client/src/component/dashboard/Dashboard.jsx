@@ -52,7 +52,14 @@ const Dashboard = () => {
             credentials: 'same-origin'
 
         })
-            .then(data => data.json())
+            .then(data => {
+                if (data.status == 500) {
+                    window.location.href = '/login'
+                } else {
+                    return data.json()
+                }
+            }
+            )
             .then(data1 => {
                 setData(data1)
             })
@@ -77,7 +84,7 @@ const Dashboard = () => {
     return (
         <div className='full'>
             <nav className="navbar navbar-expand-lg navbar-light">
-                <button className="btn btn-outline-success mx-auto" onClick={handleLogout} >{user}</button>
+                <button className="btn btn-outline-success mx-auto" onClick={handleLogout} >{user ? user : 'Đăng Xuất'}</button>
             </nav>
             <div className="container">
                 <div className="row justify-content-center headT ">

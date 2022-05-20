@@ -5,16 +5,16 @@ const accountModel = require('../model/account')
 exports.check = (req, res, next) => {
     const token = req.headers.authorization
     if (!token)
-        res.redirect('/login')
+        res.status(500)
     const name = jwt.verify(token, process.env.TOKEN_PASS)['name']
     accountModel.findOne({ name })
         .then(data => {
             if (!data)
-                res.redirect('/login')
+                res.status(500)
             next()
         })
         .catch(err => {
             console.log(err)
-            res.redirect('/login')
+            res.status(500)
         })
 }
