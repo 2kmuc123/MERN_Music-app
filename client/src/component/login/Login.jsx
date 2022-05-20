@@ -6,8 +6,8 @@ import './Login.css'
 
 const Login = () => {
     const [form, setForm] = useState({
-        name: '',
-        pass: '',
+        username: '',
+        password: '',
     })
     const [check, setCheck] = useState(false)
 
@@ -19,7 +19,7 @@ const Login = () => {
         })
     }
     const handleValidate = () => {
-        if (form.name == "" || form.pass == "") {
+        if (form.username == "" || form.password == "") {
             alert('Vui Lòng Nhập Tất Cả Thông Tin !!!')
             setCheck(false)
         }
@@ -36,8 +36,9 @@ const Login = () => {
             handleSubmit()
         }
     }
-
+    console.log(form);
     useEffect(() => {
+
         if (check) {
             fetch(`${process.env.REACT_APP_API}/account/login`, {
                 method: 'POST',
@@ -47,6 +48,7 @@ const Login = () => {
             })
                 .then(data => data.json())
                 .then(data => {
+                    console.log(data.status);
                     if (data.status === true) {
                         alert("Đăng Nhập Thành Công !!!")
                         const cookie = new cookies
@@ -55,8 +57,8 @@ const Login = () => {
                     } else
                         alert("Sai Tài Khoản Hoặc Mật Khẩu !!!")
                     setForm({
-                        name: '',
-                        pass: '',
+                        username: '',
+                        password: '',
                     })
                     setCheck(false)
 
@@ -78,13 +80,13 @@ const Login = () => {
                                     <div className="row mb-3">
                                         <label className="col-md-4 col-form-label text-md-end">Name</label>
                                         <div className="col-md-6">
-                                            <input id="name" type="name" className="form-control" name="name" value={form.name} onChange={handleFrom} onKeyDown={hanleKeyDown} />
+                                            <input id="name" type="name" className="form-control" name="username" value={form.username} onChange={handleFrom} onKeyDown={hanleKeyDown} />
                                         </div>
                                     </div>
                                     <div className="row mb-3">
                                         <label className="col-md-4 col-form-label text-md-end">Pass</label>
                                         <div className="col-md-6">
-                                            <input id="password" type="password" className="form-control" name="pass" value={form.pass} onChange={handleFrom} onKeyDown={hanleKeyDown} />
+                                            <input id="password" type="password" className="form-control" name="password" value={form.password} onChange={handleFrom} onKeyDown={hanleKeyDown} />
                                         </div>
                                     </div>
                                     <div className="row mb-3">

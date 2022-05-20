@@ -4,12 +4,12 @@ import './Register.css'
 
 const Register = () => {
     const [form, setForm] = useState({
-        name: '',
-        mail: '',
+        username: '',
+        email: '',
         phone: '',
-        pass: '',
+        password: '',
     })
-    const [pass2, setPass2] = useState('')
+    const [password2, setpassword2] = useState('')
     const [check, setCheck] = useState(false)
 
 
@@ -23,13 +23,13 @@ const Register = () => {
 
 
     const handleValidate = () => {
-        if (form.name == "" || form.mail == "" || form.phone == "" || form.pass == "") {
+        if (form.username == "" || form.email == "" || form.phone == "" || form.password == "") {
             alert('Vui Lòng Nhập Tất Cả Thông Tin !!!')
             setCheck(false)
         }
-        else if (form.pass != pass2) {
+        else if (form.password != password2) {
             alert("Mật Khẩu Không Trùng Khớp !!!")
-            setPass2('')
+            setpassword2('')
             setCheck(false)
         }
         else
@@ -59,12 +59,12 @@ const Register = () => {
                 .then(data => {
                     alert(data)
                     setForm({
-                        name: '',
-                        mail: '',
+                        username: '',
+                        email: '',
                         phone: '',
-                        pass: '',
+                        password: '',
                     })
-                    setPass2('')
+                    setpassword2('')
                     setCheck(false)
 
                 })
@@ -92,13 +92,13 @@ const Register = () => {
                                     <div className="row mb-3">
                                         <label className="col-md-4 col-form-label text-md-end">Tên Đăng Nhập</label>
                                         <div className="col-md-6">
-                                            <input id="name" type="text" className="form-control " name="name" value={form.name} onChange={handleFrom} onKeyDown={hanleKeyDown} />
+                                            <input id="name" type="text" className="form-control " name="username" value={form.username} onChange={handleFrom} onKeyDown={hanleKeyDown} />
                                         </div>
                                     </div>
                                     <div className="row mb-3">
                                         <label className="col-md-4 col-form-label text-md-end">Địa chỉ Email</label>
                                         <div className="col-md-6">
-                                            <input id="email" type="email" className="form-control" name="mail" value={form.mail} onChange={handleFrom} onKeyDown={hanleKeyDown} />
+                                            <input id="email" type="email" className="form-control" name="email" value={form.email} onChange={handleFrom} onKeyDown={hanleKeyDown} />
                                         </div>
                                     </div>
                                     <div className="row mb-3">
@@ -110,13 +110,13 @@ const Register = () => {
                                     <div className="row mb-3">
                                         <label className="col-md-4 col-form-label text-md-end">Mật Khẩu</label>
                                         <div className="col-md-6">
-                                            <input id="password" type="password" className="form-control" name="pass" value={form.pass} onChange={handleFrom} onKeyDown={hanleKeyDown} />
+                                            <input id="password" type="password" className="form-control" name="password" value={form.password} onChange={handleFrom} onKeyDown={hanleKeyDown} />
                                         </div>
                                     </div>
                                     <div className="row mb-3">
                                         <label className="col-md-4 col-form-label text-md-end">Nhập Lại Mật Khẩu</label>
                                         <div className="col-md-6">
-                                            <input id="password-confirm" type="password" className="form-control" name="pass2" value={pass2} onChange={e => setPass2(e.target.value)} onKeyDown={hanleKeyDown} />
+                                            <input id="password-confirm" type="password" className="form-control" name="password2" value={password2} onChange={e => setpassword2(e.target.value)} onKeyDown={hanleKeyDown} />
                                         </div>
                                     </div>
                                     <div className="row mb-0">

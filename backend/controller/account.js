@@ -4,22 +4,22 @@ const bcrypt = require('bcrypt');
 const salt = bcrypt.genSaltSync(10)
 
 exports.login = (req, res, next) => {
-    const name = req.body.name
-    //const pass = req.body.pass
-    const hashpass = bcrypt.hashSync(`${req.body.pass}`, salt)
+    const username = req.body.username
+    const password = req.body.password
+    const hashpass = bcrypt.hashSync(password, salt)
 
     accountModel.findOne({
-        name: name
+        username: username
     })
         .then(data => {
             if (data == null)
                 return res.json({ status: false })
             else {
-                if (data.pass != hashpass) {
+                if (data.password != hashpass) {
                     return res.json({ status: false })
                 } else {
                     const token = jwt.sign({
-                        name: name
+                        username: username
                     }, process.env.TOKEN_PASS)
                     return res.json({
                         status: true,
@@ -33,14 +33,14 @@ exports.login = (req, res, next) => {
 }
 
 exports.register = (req, res, next) => {
-    const name = req.body.name;
-    const pass = bcrypt.hashSync(`${req.body.pass}`, salt)
-    const mail = req.body.mail;
+    const username = req.body.username;
+    const password = bcrypt.hashSync(`${req.body.password}`, salt)
+    const email = req.body.email;
     const phone = req.body.phone;
-
+    //console.log(req.body.password)
 
     accountModel.findOne({
-        name: name
+        username: username
     })
         .then((data) => {
             if (data) {
@@ -48,13 +48,14 @@ exports.register = (req, res, next) => {
             }
             else {
                 accountModel.create({
-                    name: name,
-                    pass: pass,
-                    mail: mail,
+                    username: username,
+                    password: password,
+                    email: email,
                     phone: phone,
                 })
                     .then(data => {
                         if (data) {
+                            //console.log(data.password)
                             res.json('Đăng Ký Thành Công !!!')
                         } else
                             res.json('Đăng Ký Thất Bại !!!')
