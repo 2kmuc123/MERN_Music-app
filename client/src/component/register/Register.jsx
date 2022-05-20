@@ -49,7 +49,7 @@ const Register = () => {
 
     useEffect(() => {
         if (check) {
-            fetch(`${process.env.REACT_APP_API}/api/register`, {
+            fetch(`${process.env.REACT_APP_API}/account/register`, {
                 method: 'POST',
                 mode: 'cors',
                 headers: { 'Content-Type': 'application/json' },

@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose')
 require('dotenv').config();
 
+
 const app = express()
 
 app.use(express.json())
@@ -17,15 +18,18 @@ mongoose.connect(process.env.MONGOO)
 
 
 //ROUTE
-const loginregister = require('./router/account')
-const music = require('./router/music.js')
+const fs = require('fs')
+fs.readdirSync('./router/').forEach(file => {
+    const path = file.split('.js')[0]
+    app.use(`/${path}`, require(`./router/${path}`))
+});
+
 
 app.get('/', (req, res, next) => {
     res.json({ status: true, sever: 'running !!!', key: Math.random() })
 });
 
-app.use('/api', loginregister)
-app.use('/api/music', music)
+
 
 
 

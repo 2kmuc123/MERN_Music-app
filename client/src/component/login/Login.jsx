@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import cookies from 'universal-cookie'
 import './Login.css'
 
 
@@ -38,7 +39,7 @@ const Login = () => {
 
     useEffect(() => {
         if (check) {
-            fetch(`${process.env.REACT_APP_API}/api/login`, {
+            fetch(`${process.env.REACT_APP_API}/account/login`, {
                 method: 'POST',
                 mode: 'cors',
                 headers: { 'Content-Type': 'application/json' },
@@ -48,7 +49,8 @@ const Login = () => {
                 .then(data => {
                     if (data.status === true) {
                         alert("Đăng Nhập Thành Công !!!")
-                        window.localStorage.setItem('token', data.token)
+                        const cookie = new cookies
+                        cookie.set('token', data.token)
                         window.location.href = '/'
                     } else
                         alert("Sai Tài Khoản Hoặc Mật Khẩu !!!")

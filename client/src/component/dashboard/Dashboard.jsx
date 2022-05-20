@@ -3,6 +3,8 @@ import './Dashboard.css'
 import jwtDecode from 'jwt-decode'
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
+import Loser from './music/Loser.mp3'
+import cookies from 'universal-cookie'
 
 
 const Dashboard = () => {
@@ -31,13 +33,25 @@ const Dashboard = () => {
     }
 
     const handleLogout = () => {
+        const cookie = new cookies()
         window.confirm('Đăng Xuất Khỏi Trái Đất !!!')
-        window.localStorage.removeItem('token')
+        cookie.remove('token')
         window.location.href = '/login'
     }
 
     const loadData = () => {
-        fetch(`${process.env.REACT_APP_API}/api/music`)
+        const cookie = new cookies()
+
+        fetch(`${process.env.REACT_APP_API}/music`, {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'authorization': `${cookie.get('token')}`
+            },
+            credentials: 'same-origin'
+
+        })
             .then(data => data.json())
             .then(data1 => {
                 setData(data1)
@@ -52,7 +66,7 @@ const Dashboard = () => {
     }
 
     useEffect(() => {
-        authCheck()
+        //authCheck()
         loadData()
     }, [])
 
@@ -97,11 +111,12 @@ const Dashboard = () => {
                     </div>
                     <div className="container-audio">
                         <AudioPlayer
-
-                            src={src}
+                            autoPlay
+                            src={Loser}
                             onPlay={e => console.log("onPlay")}
                         // other props here
                         />
+
                     </div>
                 </div >
             </div >
