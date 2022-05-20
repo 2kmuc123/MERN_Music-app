@@ -8,15 +8,15 @@ const check = require('../controller/check')
 
 const musicController = require('../controller/music.js')
 //create
-route.post('/', musicController.create);
+route.post('/', check.check, musicController.create);
 //get all
 route.get('/', check.check, musicController.getall);
 //getone
-route.get('/:id', musicController.getone);
+route.get('/:id', check.check, musicController.getone);
 //update 
-route.put('/:id', musicController.update);
+route.put('/:id', check.check, musicController.update);
 //delete
-route.delete('/:id', musicController.delete);
+route.delete('/:id', check.check, musicController.delete);
 
 
 module.exports = route
