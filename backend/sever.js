@@ -1,9 +1,7 @@
 const express = require('express');
 const cors = require('cors');
-const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose')
 require('dotenv').config();
-
 
 const app = express()
 
@@ -15,7 +13,6 @@ app.use(cors())
 mongoose.connect(process.env.MONGOO)
     .then(() => console.log('connect to DATABASE !!!!'))
     .catch(err => console.log(err))
-
 
 //ROUTE
 const fs = require('fs')
@@ -32,8 +29,8 @@ app.get('/', (req, res, next) => {
 
 
 
-
-
+//listen
 app.listen(process.env.PORT || 8000, () => {
     console.log(`Server listening on PORT : ${process.env.PORT || 8000}`)
 })
+

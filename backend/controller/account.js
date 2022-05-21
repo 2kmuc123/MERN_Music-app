@@ -6,7 +6,6 @@ const salt = bcrypt.genSaltSync(10)
 exports.login = (req, res, next) => {
     const username = req.body.username
     const password = req.body.password
-    const hashpass = bcrypt.hashSync(password, salt)
 
     accountModel.findOne({
         username: username
@@ -15,7 +14,8 @@ exports.login = (req, res, next) => {
             if (data == null)
                 return res.json({ status: false })
             else {
-                if (data.password != hashpass) {
+                const hashpass = bcrypt.compare(password, data.password)
+                if (hashpass == false) {
                     return res.json({ status: false })
                 } else {
                     const token = jwt.sign({
@@ -37,7 +37,6 @@ exports.register = (req, res, next) => {
     const password = bcrypt.hashSync(`${req.body.password}`, salt)
     const email = req.body.email;
     const phone = req.body.phone;
-    //console.log(req.body.password)
 
     accountModel.findOne({
         username: username
