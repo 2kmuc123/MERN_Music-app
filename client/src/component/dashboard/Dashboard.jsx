@@ -47,7 +47,7 @@ const Dashboard = () => {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'authorization': `${cookie.get('token')}`
+                'authorization': `Bearer ${cookie.get('token')}`
             },
             credentials: 'same-origin'
 
