@@ -54,6 +54,7 @@ const Dashboard = () => {
         })
             .then(data => {
                 if (data.status == 500) {
+                    console.log(data.json());
                     window.location.href = '/login'
                 } else {
                     return data.json()

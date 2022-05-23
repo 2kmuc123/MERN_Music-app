@@ -4,7 +4,7 @@ const route = express.Router()
 route.use(express.json())
 route.use(express.urlencoded({ extended: false }));
 
-const check = require('../controller/check')
+const check = require('../controller/checkAuth')
 
 const musicController = require('../controller/music.js')
 //create
