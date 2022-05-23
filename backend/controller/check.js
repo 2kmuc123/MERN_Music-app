@@ -4,7 +4,7 @@ const accountModel = require('../model/account')
 
 exports.check = (req, res, next) => {
     const [bearer, token] = (req.headers.authorization).split(' ')
-    if (!token || !bearer)
+    if (!token || !bearer || bearer !== 'Bearer')
         res.status(500)
     else {
         jwt.verify(token, process.env.TOKEN_PASS, (err, decode) => {
